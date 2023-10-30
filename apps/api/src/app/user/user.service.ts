@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { CreateUserInput } from './dto/create-user.input';
-import { UpdateUserInput } from './dto/update-user.input';
+import { PrismaService } from '@propeller/data-access-db';
+import {
+  CreateOneUserArgs,
+  FindUniqueUserArgs,
+  UpdateOneUserArgs,
+} from '@propeller/api/generated/generated-prisma-types';
 
 @Injectable()
 export class UserService {
-  create(createUserInput: CreateUserInput) {
-    return 'This action adds a new user';
+  constructor(private prisma: PrismaService) {}
+
+  findOne(findUserArgs: FindUniqueUserArgs) {
+    return this.prisma.user.findUnique(findUserArgs);
   }
 
   findAll() {
-    return `This action returns all user`;
+    return this.prisma.user.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  create(userCreateArgs: CreateOneUserArgs) {
+    return this.prisma.user.create(userCreateArgs);
   }
 
-  update(id: number, updateUserInput: UpdateUserInput) {
-    return `This action updates a #${id} user`;
+  update(userUpdateInput: UpdateOneUserArgs) {
+    return this.prisma.user.update(userUpdateInput);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  remove(removeUserArgs: FindUniqueUserArgs) {
+    return this.prisma.user.delete(removeUserArgs);
   }
 }

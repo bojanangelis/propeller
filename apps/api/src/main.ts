@@ -3,14 +3,26 @@
  * This is only a minimal backend to get started.
  */
 
-import { Logger } from '@nestjs/common';
+import { BadRequestException, Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
+import { ValidationError } from 'class-validator';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true,
+      forbidUnknownValues: true,
+      exceptionFactory: (errors: ValidationError[]) => {
+        const errorrsMessages = errors.map((error) =>
+          Object.values(error.constraints)
+        );
+        return new BadRequestException(errorrsMessages);
+      },
+    })
+  );
   const globalPrefix = 'graphql';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
