@@ -1,0 +1,44 @@
+{
+  "name": "api-generated-generated-prisma-types",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/api/generated/generated-prisma-types/src",
+  "projectType": "library",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/api/generated/generated-prisma-types",
+        "tsConfig": "libs/api/generated/generated-prisma-types/tsconfig.lib.json",
+        "packageJson": "libs/api/generated/generated-prisma-types/package.json",
+        "main": "libs/api/generated/generated-prisma-types/src/index.ts",
+        "assets": ["libs/api/generated/generated-prisma-types/*.md"]
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": [
+          "libs/api/generated/generated-prisma-types/**/*.ts",
+          "libs/api/generated/generated-prisma-types/package.json"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "libs/api/generated/generated-prisma-types/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
