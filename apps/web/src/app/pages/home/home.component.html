@@ -14,30 +14,7 @@
     <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
       <mat-grid-tile>
         <propeller-product-box
-          class="w-full"
-          [fullWidthMode]="cols === 1"
-        ></propeller-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <propeller-product-box
-          class="w-full"
-          [fullWidthMode]="cols === 1"
-        ></propeller-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <propeller-product-box
-          class="w-full"
-          [fullWidthMode]="cols === 1"
-        ></propeller-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <propeller-product-box
-          class="w-full"
-          [fullWidthMode]="cols === 1"
-        ></propeller-product-box>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <propeller-product-box
+          (addToCart)="onAddToCart($event)"
           class="w-full"
           [fullWidthMode]="cols === 1"
         ></propeller-product-box>

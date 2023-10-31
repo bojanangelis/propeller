@@ -13,6 +13,7 @@ import {
 } from '@apollo/client/core';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimations } from '@angular/platform-browser/animations';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,6 +33,7 @@ export const appConfig: ApplicationConfig = {
       deps: [HttpLink],
     },
     Apollo,
+    MatSnackBar,
     provideHttpClient(),
     provideAnimations(),
   ],
