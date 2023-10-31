@@ -14,7 +14,12 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@propeller/api/generated/generated-prisma-types": [
+        "libs/api/generated/generated-prisma-types/src/index.ts"
+      ],
+      "@propeller/data-access-db": ["libs/api/data-access-db/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
