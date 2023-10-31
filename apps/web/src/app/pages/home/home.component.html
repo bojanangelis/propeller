@@ -12,7 +12,36 @@
       (columnsViewChange)="onColumsViewChange($event)"
     ></propeller-app-header-component>
     <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
-      <mat-grid-tile-footer> </mat-grid-tile-footer>
+      <mat-grid-tile>
+        <propeller-product-box
+          class="w-full"
+          [fullWidthMode]="cols === 1"
+        ></propeller-product-box>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <propeller-product-box
+          class="w-full"
+          [fullWidthMode]="cols === 1"
+        ></propeller-product-box>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <propeller-product-box
+          class="w-full"
+          [fullWidthMode]="cols === 1"
+        ></propeller-product-box>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <propeller-product-box
+          class="w-full"
+          [fullWidthMode]="cols === 1"
+        ></propeller-product-box>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <propeller-product-box
+          class="w-full"
+          [fullWidthMode]="cols === 1"
+        ></propeller-product-box>
+      </mat-grid-tile>
     </mat-grid-list>
   </mat-drawer-content>
 </mat-drawer-container>

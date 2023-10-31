@@ -4,6 +4,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { AppHeaderComponentComponent } from '../components/app-header-component/app-header-component.component';
 import { FiltersComponent } from '../components/filters/filters.component';
+import { ProductBoxComponent } from '../components/product-box/product-box.component';
 
 const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 350 };
 
@@ -16,6 +17,7 @@ const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 350 };
     MatGridListModule,
     AppHeaderComponentComponent,
     FiltersComponent,
+    ProductBoxComponent,
   ],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
