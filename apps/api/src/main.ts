@@ -23,6 +23,9 @@ async function bootstrap() {
       },
     })
   );
+
+  app.enableCors({ origin: true });
+
   const globalPrefix = 'graphql';
   app.setGlobalPrefix(globalPrefix);
   const port = process.env.PORT || 3000;
