@@ -11,7 +11,8 @@ import {
   ApolloLink,
   InMemoryCache,
 } from '@apollo/client/core';
-import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,5 +33,6 @@ export const appConfig: ApplicationConfig = {
     },
     Apollo,
     provideHttpClient(),
+    provideAnimations(),
   ],
 };
