@@ -1,18 +1,25 @@
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { join } from 'path';
-import { UserModule } from './user/user.module';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo'
+import { Module } from '@nestjs/common'
+import { GraphQLModule } from '@nestjs/graphql'
+import { join } from 'path'
+import { UserModule } from './user/user.module'
+import { AuthenticationModule } from './authentication/authentication.module'
+import { ConfigModule } from '@nestjs/config'
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true
+    }),
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: join(process.cwd(), 'tools/graphql-schema/schema.gql'),
+      autoSchemaFile: join(process.cwd(), 'tools/graphql-schema/schema.gql')
+      // context: ({ req, res }) => ({ req, res })
     }),
     UserModule,
+    AuthenticationModule
   ],
   controllers: [],
-  providers: [],
+  providers: []
 })
 export class AppModule {}

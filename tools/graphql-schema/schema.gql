@@ -149,6 +149,8 @@ type Mutation {
   createUser(data: UserCreateInput!): User!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User!
   removeUser(where: UserWhereUniqueInput!): User!
+  login(loginInput: LoginInput!): User!
+  signUp(signUpInput: LoginInput!): User!
 }
 
 input UserCreateInput {
@@ -169,4 +171,9 @@ input StringFieldUpdateOperationsInput {
 
 input NullableStringFieldUpdateOperationsInput {
   set: String
+}
+
+input LoginInput {
+  email: String!
+  password: String!
 }
