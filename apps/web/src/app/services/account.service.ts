@@ -11,14 +11,17 @@ import { CookieService } from 'ngx-cookie-service'
 export class AccountService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false)
 
-  constructor(private cookieService: CookieService, private apollo: Apollo) {}
+  constructor(private cookieService: CookieService, private apollo: Apollo) {
+    this.checkAuthenticationStatus()
+  }
 
   checkAuthenticationStatus(): void {
-    const token = this.cookieService.get('token')
     const tokenExpires = this.cookieService.get('token-expires')
 
-    if (token && tokenExpires) {
-      const tokenExpiresDate = new Date(tokenExpires)
+    if (tokenExpires) {
+      const tokenExpiresTimestamp = Number(tokenExpires)
+      const tokenExpiresDate = new Date(tokenExpiresTimestamp)
+
       if (tokenExpiresDate > new Date()) {
         this.isLoggedInSubject.next(true)
       } else {
@@ -38,7 +41,7 @@ export class AccountService {
           }
         },
         context: {
-          withCredentials: true // Ensure cookies are sent with the request
+          withCredentials: true
         }
       })
       .pipe(
@@ -65,9 +68,5 @@ export class AccountService {
 
   isLoggedIn(): Observable<boolean> {
     return this.isLoggedInSubject.asObservable()
-  }
-
-  private checkLoginStatus(): void {
-    this.isLoggedInSubject.next(false)
   }
 }

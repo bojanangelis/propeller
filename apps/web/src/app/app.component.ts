@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { APP_INITIALIZER, Component, OnInit } from '@angular/core'
 import { RouterModule } from '@angular/router'
 import { Apollo } from 'apollo-angular'
 import { HttpClientModule } from '@angular/common/http'
@@ -9,9 +9,21 @@ import { Cart } from './models/cart.model'
 import { CartService } from './services/cart.service'
 import { AccountService } from './services/account.service'
 
+function initializeApp(accountService: AccountService) {
+  return () => accountService.checkAuthenticationStatus()
+}
+
 @Component({
   standalone: true,
   imports: [HeaderComponent, RouterModule, HttpClientModule, CommonModule],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      useFactory: initializeApp,
+      deps: [AccountService],
+      multi: true
+    }
+  ],
   selector: 'propeller-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
