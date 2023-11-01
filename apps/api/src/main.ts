@@ -3,15 +3,16 @@
  * This is only a minimal backend to get started.
  */
 
-import { BadRequestException, Logger, ValidationPipe } from '@nestjs/common'
+import { Logger, ValidationPipe } from '@nestjs/common'
 import { NestFactory } from '@nestjs/core'
 import cookieParser from 'cookie-parser'
-
 import { AppModule } from './app/app.module'
-import { ValidationError } from 'class-validator'
+import { NestFastifyApplication, FastifyAdapter } from '@nestjs/platform-fastify'
+import fastifyCookie from '@fastify/cookie'
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule)
+  const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
+
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
@@ -23,10 +24,11 @@ async function bootstrap() {
       // }
     })
   )
+  app.register(fastifyCookie, { secret: process.env.COOKIE_SECRET })
   app.enableCors({ origin: true })
   app.use(cookieParser())
 
-  const globalPrefix = 'graphql'
+  const globalPrefix = 'graphiql'
   app.setGlobalPrefix(globalPrefix)
   const port = process.env.PORT || 3000
   await app.listen(port)

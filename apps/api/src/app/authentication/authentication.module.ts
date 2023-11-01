@@ -4,7 +4,6 @@ import { UserModule } from '../user/user.module'
 import { AuthenticationResolver } from './authentication.resolver'
 import { LocalStrategy } from '../guards/strategy/local.strategy'
 import { JwtModule } from '@nestjs/jwt'
-import { JwtStrategy } from '../guards/jwt-strategy'
 import { PassportModule } from '@nestjs/passport'
 
 @Module({
@@ -18,6 +17,6 @@ import { PassportModule } from '@nestjs/passport'
     })
   ],
 
-  providers: [AuthenticationResolver, AuthenticationService, LocalStrategy, JwtStrategy]
+  providers: [AuthenticationResolver, AuthenticationService, LocalStrategy]
 })
 export class AuthenticationModule {}
