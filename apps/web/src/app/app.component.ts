@@ -40,8 +40,10 @@ export class AppComponent implements OnInit {
         this.loading = false
         this.error = error
         this.users = data.users
+        console.log(data.users)
       })
   }
+
   ngOnInit(): void {
     this.loadAllUsers()
     this.cartService.cart.subscribe((_cart) => {

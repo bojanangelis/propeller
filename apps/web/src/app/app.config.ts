@@ -9,7 +9,6 @@ import { provideAnimations } from '@angular/platform-browser/animations'
 import { MatSnackBar } from '@angular/material/snack-bar'
 import { CookieService } from 'ngx-cookie-service'
 
-// const x = process.env['GRAPHQL_END_POINT']
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
@@ -17,12 +16,11 @@ export const appConfig: ApplicationConfig = {
       provide: APOLLO_OPTIONS,
       useFactory(httpLink: HttpLink): ApolloClientOptions<unknown> {
         return {
-          cache: new InMemoryCache(),
+          cache: new InMemoryCache({}),
+          credentials: 'include',
           link: ApolloLink.from([
             httpLink.create({
-              uri: 'http://localhost:3000/graphql',
-              //@ts-ignore
-              credentials: 'include'
+              uri: 'http://localhost:3000/graphql'
             })
           ])
         }

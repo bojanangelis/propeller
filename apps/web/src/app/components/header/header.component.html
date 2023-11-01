@@ -1,52 +1,47 @@
-<mat-toolbar
-  style="
-    margin-left: auto;
-    margin-right: auto;
-    padding-right: 40px;
-    padding-left: 40px;
-  "
-  class="max-w-7xl border-x justify-between items-center"
->
-  <a routerLink="home">
-    <img
-      class="object-contain w-32 h-16"
-      src="https://propeller-commerce.com/wp-content/themes/ecs-propeller/assets/build/images/theme/logo-blue.png"
-      alt="propeller logo"
-    />
-  </a>
-  <button mat-icon-button [matMenuTriggerFor]="menu">
-    <mat-icon
-      [matBadge]="itemsQuantity"
-      [matBadgeHidden]="!itemsQuantity"
-      matBadgeColor="warn"
-      >shopping_cart</mat-icon
-    >
-  </button>
-  <mat-menu #menu="matMenu">
-    <div class="p-3 divide-y divide-solid">
-      <button routerLink="cart" class="pb-3 flex justify-between">
-        <span class="mr-20">{{ itemsQuantity }} Items</span>
-        <p>View Cart</p>
-      </button>
-      <div *ngIf="cart.items.length" class="py-3">
-        <div
-          *ngFor="let item of cart.items"
-          class="flex justify-between font-light mb-4"
-        >
-          <p>{{ item.name }} x {{ item.quantity }}</p>
-          <span class="font-bold">{{ item.price | currency }}</span>
+<mat-card class="px-10">
+  <mat-card-actions class="flex items-center justify-between">
+    <a routerLink="home">
+      <img
+        class="object-contain w-32 h-16"
+        src="https://propeller-commerce.com/wp-content/themes/ecs-propeller/assets/build/images/theme/logo-blue.png"
+        alt="propeller logo"
+      />
+    </a>
+    <div>
+      <button mat-button>HOME</button>
+      <button mat-button>SHOP</button>
+      <button mat-button>ABOUT</button>
+      <button mat-button>PROFILE</button>
+    </div>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity" matBadgeColor="warn"
+        >shopping_cart</mat-icon
+      >
+    </button>
+    <mat-menu #menu="matMenu">
+      <div class="p-3 divide-y divide-solid">
+        <button routerLink="cart" class="pb-3 flex justify-between">
+          <span class="mr-20">{{ itemsQuantity }} Items</span>
+          <p>View Cart</p>
+        </button>
+        <div *ngIf="cart.items.length" class="py-3">
+          <div *ngFor="let item of cart.items" class="flex justify-between font-light mb-4">
+            <p>{{ item.name }} x {{ item.quantity }}</p>
+            <span class="font-bold">{{ item.price | currency }}</span>
+          </div>
+        </div>
+        <div class="flex justify-between py-4 font-light">
+          Total:
+          <span class="font-bold">{{ getTotal(cart.items) | currency }}</span>
+        </div>
+        <div class="pt-3 w-full items-center">
+          <button (click)="onClearCart()" class="flex items-start">
+            <p class="items-start">Clear cart</p>
+            <mat-icon>close</mat-icon>
+          </button>
         </div>
       </div>
-      <div class="flex justify-between py-4 font-light">
-        Total:
-        <span class="font-bold">{{ getTotal(cart.items) | currency }}</span>
-      </div>
-      <div class="pt-3 w-full items-center">
-        <button (click)="onClearCart()" class="flex items-start">
-          <p class="items-start">Clear cart</p>
-          <mat-icon>close</mat-icon>
-        </button>
-      </div>
-    </div>
-  </mat-menu>
-</mat-toolbar>
+    </mat-menu>
+  </mat-card-actions>
+</mat-card>

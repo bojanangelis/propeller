@@ -11,14 +11,7 @@ import { CookieService } from 'ngx-cookie-service'
 export class AccountService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false)
 
-  // constructor(private apollo: Apollo) {
-  //   // Optionally, check login status when the application starts
-  //   this.checkLoginStatus()
-  //   console.log(this.checkLoginStatus())
-  // }
-  constructor(private cookieService: CookieService, private apollo: Apollo) {
-    console.log(this.cookieService.get('token'))
-  }
+  constructor(private cookieService: CookieService, private apollo: Apollo) {}
 
   checkAuthenticationStatus(): void {
     const token = this.cookieService.get('token')
@@ -29,8 +22,7 @@ export class AccountService {
       if (tokenExpiresDate > new Date()) {
         this.isLoggedInSubject.next(true)
       } else {
-        // Token is expired
-        // You can also clear the token from cookies here if needed
+        this.cookieService.deleteAll()
       }
     }
   }
@@ -67,8 +59,6 @@ export class AccountService {
   }
 
   logout(): Observable<boolean> {
-    // Implement logout logic here. This could involve making a GraphQL mutation to invalidate the session on the server.
-    // For this example, let's assume logging out is always successful.
     this.isLoggedInSubject.next(false)
     return of(true)
   }
@@ -78,9 +68,6 @@ export class AccountService {
   }
 
   private checkLoginStatus(): void {
-    // Implement logic to check login status on application startup
-    // This could involve making a GraphQL query to the server to check the session
-    // For this example, let's assume the user is logged out by default.
     this.isLoggedInSubject.next(false)
   }
 }
