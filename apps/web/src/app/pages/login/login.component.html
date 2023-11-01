@@ -1,0 +1,67 @@
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+  <div class="max-w-md w-full space-y-8 bg-white px-20 py-32 rounded-lg shadow-xl">
+    <div class="flex flex-col items-center justify-center">
+      <img
+        class="object-contain w-56 h-28"
+        src="https://propeller-commerce.com/wp-content/themes/ecs-propeller/assets/build/images/theme/logo-blue.png"
+        alt="propeller logo"
+      />
+      <p class="text-gray-600 font-extralight text-sm">Log in with your Propeller Account</p>
+    </div>
+    <form class="mt-8 space-y-6" (submit)="onSubmit()">
+      <div class="rounded-md shadow-sm space-y-2">
+        <div>
+          <label for="email-address" class="sr-only">Email address</label>
+          <input
+            [(ngModel)]="email"
+            id="email-address"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Email address"
+          />
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input
+            [(ngModel)]="password"
+            id="password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+            class="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+            placeholder="Password"
+          />
+        </div>
+      </div>
+      <div>
+        <a
+          routerLink="/forgot-password"
+          class="text-gray-600 font-extralight text-sm cursor-pointer hover:underline"
+          >Forgot your password ?</a
+        >
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          class="px-4 py-2.5 border rounded-md w-full bg-indigo-600 text-white hover:bg-indigo-700 active:bg-indigo-800 text-sm"
+        >
+          Sign in
+        </button>
+      </div>
+      <div class="divide-x">
+        <button
+          routerLink="/sign-up"
+          type="button"
+          class="px-4 py-2.5 border rounded-md w-full hover:bg-gray-50 active:bg-gray-100 text-sm"
+        >
+          Create Account
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
