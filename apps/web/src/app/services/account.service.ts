@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs'
 import { Apollo } from 'apollo-angular'
 import { catchError, map } from 'rxjs/operators'
 import { USER_LOGIN_GQL } from '../../graphql/mutations/user-login.mutation'
+import { CookieService } from 'ngx-cookie-service'
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,28 @@ import { USER_LOGIN_GQL } from '../../graphql/mutations/user-login.mutation'
 export class AccountService {
   private isLoggedInSubject = new BehaviorSubject<boolean>(false)
 
-  constructor(private apollo: Apollo) {
-    // Optionally, check login status when the application starts
-    this.checkLoginStatus()
+  // constructor(private apollo: Apollo) {
+  //   // Optionally, check login status when the application starts
+  //   this.checkLoginStatus()
+  //   console.log(this.checkLoginStatus())
+  // }
+  constructor(private cookieService: CookieService, private apollo: Apollo) {
+    console.log(this.cookieService.get('token'))
+  }
+
+  checkAuthenticationStatus(): void {
+    const token = this.cookieService.get('token')
+    const tokenExpires = this.cookieService.get('token-expires')
+
+    if (token && tokenExpires) {
+      const tokenExpiresDate = new Date(tokenExpires)
+      if (tokenExpiresDate > new Date()) {
+        this.isLoggedInSubject.next(true)
+      } else {
+        // Token is expired
+        // You can also clear the token from cookies here if needed
+      }
+    }
   }
 
   login(email: string, password: string): Observable<boolean> {

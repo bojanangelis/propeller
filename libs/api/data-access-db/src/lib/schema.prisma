@@ -36,3 +36,38 @@ model User {
     /// @HideField()
     password String
 }
+
+model Product {
+    id            String   @id @default(uuid())
+    /// @Validator.IsString()
+    /// @Validator.MaxLength(100)
+    /// @Validator.MinLength(3)
+    name          String   @unique
+    /// @Validator.IsString()
+    /// @Validator.MaxLength(1000)
+    /// @Validator.MinLength(0)
+    description   String?
+    /// @Validator.@IsInt()
+    /// @Validator.@Min(1)
+    /// @Validator.@Max(100_000)
+    price         Int
+    discountPrice Int?
+    category      Category @relation(fields: [categoryId], references: [id])
+    categoryId    Int
+    image         String
+    rating        Rating   @relation(fields: [ratingId], references: [id])
+    ratingId      Int      @unique
+}
+
+model Category {
+    id       Int       @id @default(autoincrement())
+    name     String    @unique
+    products Product[]
+}
+
+model Rating {
+    id      Int       @id @default(autoincrement())
+    rate    Float
+    count   Int
+    product Product[]
+}

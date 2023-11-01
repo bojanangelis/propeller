@@ -9,6 +9,8 @@ import cookieParser from 'cookie-parser'
 import { AppModule } from './app/app.module'
 import { NestFastifyApplication, FastifyAdapter } from '@nestjs/platform-fastify'
 import fastifyCookie from '@fastify/cookie'
+import cors from '@fastify/cors'
+import Fastify from 'fastify'
 
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter())
@@ -25,8 +27,11 @@ async function bootstrap() {
     })
   )
   app.register(fastifyCookie, { secret: process.env.COOKIE_SECRET })
-  app.enableCors({ origin: true })
-  app.use(cookieParser())
+  // app.enableCors({ origin: true })
+  app.enableCors({
+    origin: true,
+    credentials: true
+  })
 
   const globalPrefix = 'graphiql'
   app.setGlobalPrefix(globalPrefix)

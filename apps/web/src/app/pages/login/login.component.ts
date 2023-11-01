@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common'
 import { AccountService } from '../../services/account.service'
 import { Router } from '@angular/router'
 import { FormsModule } from '@angular/forms'
+import { CookieService } from 'ngx-cookie-service'
 
 @Component({
   selector: 'propeller-login',
   standalone: true,
   imports: [CommonModule, FormsModule],
+  providers: [CookieService],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -28,7 +30,13 @@ export class LoginComponent {
   loading: boolean = false
   error: string | null = null
 
-  constructor(private accountService: AccountService, private router: Router) {}
+  constructor(
+    private accountService: AccountService,
+    private router: Router,
+    private cookie: CookieService
+  ) {
+    console.log(this.cookie.get('token-expires'))
+  }
 
   onSubmit() {
     this.loading = true

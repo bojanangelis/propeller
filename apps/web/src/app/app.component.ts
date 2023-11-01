@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common'
 import { HeaderComponent } from './components/header/header.component'
 import { Cart } from './models/cart.model'
 import { CartService } from './services/cart.service'
+import { AccountService } from './services/account.service'
 
 @Component({
   standalone: true,
@@ -22,7 +23,13 @@ export class AppComponent implements OnInit {
   error: any
   loading: boolean = true
 
-  constructor(private apollo: Apollo, private cartService: CartService) {}
+  constructor(
+    private apollo: Apollo,
+    private cartService: CartService,
+    private accountService: AccountService
+  ) {
+    this.accountService.checkAuthenticationStatus()
+  }
 
   loadAllUsers() {
     this.apollo

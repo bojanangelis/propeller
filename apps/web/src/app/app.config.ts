@@ -7,6 +7,7 @@ import { ApolloClientOptions, ApolloLink, InMemoryCache } from '@apollo/client/c
 import { provideHttpClient } from '@angular/common/http'
 import { provideAnimations } from '@angular/platform-browser/animations'
 import { MatSnackBar } from '@angular/material/snack-bar'
+import { CookieService } from 'ngx-cookie-service'
 
 // const x = process.env['GRAPHQL_END_POINT']
 export const appConfig: ApplicationConfig = {
@@ -19,7 +20,9 @@ export const appConfig: ApplicationConfig = {
           cache: new InMemoryCache(),
           link: ApolloLink.from([
             httpLink.create({
-              uri: 'http://localhost:3000/graphql'
+              uri: 'http://localhost:3000/graphql',
+              //@ts-ignore
+              credentials: 'include'
             })
           ])
         }
@@ -28,6 +31,7 @@ export const appConfig: ApplicationConfig = {
     },
     Apollo,
     MatSnackBar,
+    CookieService,
     provideHttpClient(),
     provideAnimations()
   ]
