@@ -79,6 +79,7 @@ export class AccountService {
       })
       .pipe(
         map((result: any) => {
+          console.log(result)
           const user = result.data?.signUp
           if (user && user.id) {
             return true
