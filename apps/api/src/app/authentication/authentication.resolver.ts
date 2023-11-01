@@ -1,10 +1,11 @@
 import { Resolver, Query, Mutation, Args, Int, Context } from '@nestjs/graphql'
 import { AuthenticationService } from './authentication.service'
 import { LoginInput } from './dto/authentication.input.dto'
-import { User } from '@propeller/api/generated/generated-prisma-types'
+import { User, UserCreateInput } from '@propeller/api/generated/generated-prisma-types'
 import { UseGuards } from '@nestjs/common'
 import { IUserContext } from '../guards/types'
 import { SetAuthGuard } from '../guards/set-auth.guard'
+import { SignUpInput } from './dto/create-user-auth.input.dto'
 @Resolver(() => User)
 export class AuthenticationResolver {
   constructor(private readonly authenticationService: AuthenticationService) {}
@@ -23,7 +24,7 @@ export class AuthenticationResolver {
   @Mutation(() => User)
   signUp(
     @Args('signUpInput')
-    signUpInput: LoginInput
+    signUpInput: SignUpInput
   ) {
     return this.authenticationService.signUp(signUpInput)
   }

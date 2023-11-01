@@ -4,6 +4,8 @@ import { UserService } from '../user/user.service'
 import * as bcrypt from 'bcrypt'
 import { User } from '@prisma/client'
 import { LoginInput } from './dto/authentication.input.dto'
+import { UserCreateInput } from '@propeller/api/generated/generated-prisma-types'
+import { SignUpInput } from './dto/create-user-auth.input.dto'
 
 @Injectable()
 export class AuthenticationService {
@@ -23,7 +25,7 @@ export class AuthenticationService {
     return user
   }
 
-  async signUp(signUpInput: LoginInput) {
+  async signUp(signUpInput: SignUpInput) {
     const { email, password: plainPassword } = signUpInput
     const password = await bcrypt.hash(plainPassword, 10)
 

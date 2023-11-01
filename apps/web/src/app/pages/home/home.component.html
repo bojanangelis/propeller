@@ -1,8 +1,8 @@
-<mat-drawer-container [autosize]="true" class="min-h-full mx-auto border-x">
+<mat-drawer-container [autosize]="true" class="min-h-full top-0 p-0 m-0 mx-auto border-x">
   <mat-drawer mode="side" opened class="p-6">
     <propeller-filters (showCategory)="onShowCategory($event)"></propeller-filters>
   </mat-drawer>
-  <mat-drawer-content class="p-6">
+  <mat-drawer-content class="px-4 py-2">
     <propeller-app-header-component
       (columnsViewChange)="onColumsViewChange($event)"
     ></propeller-app-header-component>

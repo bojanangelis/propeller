@@ -1,4 +1,4 @@
-<mat-card class="px-10">
+<mat-card *ngIf="isLoggedIn$ | async" class="px-10">
   <mat-card-actions class="flex items-center justify-between">
     <a routerLink="home">
       <img
@@ -11,37 +11,44 @@
       <button mat-button>HOME</button>
       <button mat-button>SHOP</button>
       <button mat-button>ABOUT</button>
-      <button mat-button>PROFILE</button>
+      <button mat-button>INFO</button>
     </div>
 
-    <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity" matBadgeColor="warn"
-        >shopping_cart</mat-icon
-      >
-    </button>
-    <mat-menu #menu="matMenu">
-      <div class="p-3 divide-y divide-solid">
-        <button routerLink="cart" class="pb-3 flex justify-between">
-          <span class="mr-20">{{ itemsQuantity }} Items</span>
-          <p>View Cart</p>
-        </button>
-        <div *ngIf="cart.items.length" class="py-3">
-          <div *ngFor="let item of cart.items" class="flex justify-between font-light mb-4">
-            <p>{{ item.name }} x {{ item.quantity }}</p>
-            <span class="font-bold">{{ item.price | currency }}</span>
+    <div class="flex items-center">
+      <button mat-button [matMenuTriggerFor]="profileMenu">PROFILE</button>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon [matBadge]="itemsQuantity" [matBadgeHidden]="!itemsQuantity" matBadgeColor="warn"
+          >shopping_cart</mat-icon
+        >
+      </button>
+      <mat-menu #menu="matMenu">
+        <div class="p-3 divide-y divide-solid">
+          <button routerLink="cart" class="pb-3 flex justify-between">
+            <span class="mr-20">{{ itemsQuantity }} Items</span>
+            <p>View Cart</p>
+          </button>
+          <div *ngIf="cart.items.length" class="py-3">
+            <div *ngFor="let item of cart.items" class="flex justify-between font-light mb-4">
+              <p>{{ item.name }} x {{ item.quantity }}</p>
+              <span class="font-bold">{{ item.price | currency }}</span>
+            </div>
+          </div>
+          <div class="flex justify-between py-4 font-light">
+            Total:
+            <span class="font-bold">{{ getTotal(cart.items) | currency }}</span>
+          </div>
+          <div class="pt-3 w-full items-center">
+            <button (click)="onClearCart()" class="flex items-start">
+              <p class="items-start">Clear cart</p>
+              <mat-icon>close</mat-icon>
+            </button>
           </div>
         </div>
-        <div class="flex justify-between py-4 font-light">
-          Total:
-          <span class="font-bold">{{ getTotal(cart.items) | currency }}</span>
-        </div>
-        <div class="pt-3 w-full items-center">
-          <button (click)="onClearCart()" class="flex items-start">
-            <p class="items-start">Clear cart</p>
-            <mat-icon>close</mat-icon>
-          </button>
-        </div>
-      </div>
-    </mat-menu>
+      </mat-menu>
+      <mat-menu #profileMenu="matMenu">
+        <button mat-menu-item routerLink="/profile">View Profile</button>
+        <button mat-menu-item (click)="signOut()">Sign Out</button>
+      </mat-menu>
+    </div>
   </mat-card-actions>
 </mat-card>

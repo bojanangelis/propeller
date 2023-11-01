@@ -1,42 +1,24 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { AccountService } from '../../services/account.service'
-import { Router } from '@angular/router'
+import { Router, RouterLink } from '@angular/router'
 import { FormsModule } from '@angular/forms'
 import { CookieService } from 'ngx-cookie-service'
 
 @Component({
   selector: 'propeller-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   providers: [CookieService],
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  templateUrl: './login.component.html'
 })
 export class LoginComponent {
-  // loadAllUsers() {
-  //   this.apollo
-  //     .watchQuery({
-  //       query: GET_ALL_USERS_GQL,
-  //     })
-  //     .valueChanges.subscribe(({ data, error }: any) => {
-  //       this.loading = false;
-  //       this.error = error;
-  //       this.users = data.users;
-  //     });
-  // }
   email: string = ''
   password: string = ''
   loading: boolean = false
   error: string | null = null
 
-  constructor(
-    private accountService: AccountService,
-    private router: Router,
-    private cookie: CookieService
-  ) {
-    console.log(this.cookie.get('token-expires'))
-  }
+  constructor(private accountService: AccountService, private router: Router) {}
 
   onSubmit() {
     this.loading = true
