@@ -1,12 +1,8 @@
-<mat-card
-  *ngIf="product"
-  (click)="onCardClick()"
-  class="cursor-pointer"
-  [ngClass]="{ 'text-center': !fullWidthMode }"
->
+<mat-card *ngIf="product" [ngClass]="{ 'text-center': !fullWidthMode }">
   <div class="p-8" [ngClass]="{ flex: fullWidthMode }">
     <img
-      class="mb-2 mx-auto h-[200px] object-contain"
+      (click)="onCardClick()"
+      class="mb-2 mx-auto h-[200px] object-contain cursor-pointer"
       [ngClass]="{ 'h-[200px]': !fullWidthMode, 'h-[360px]': fullWidthMode }"
       [src]="product.images?.[0]?.img"
       alt="img"

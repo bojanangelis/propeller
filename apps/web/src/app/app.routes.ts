@@ -8,6 +8,11 @@ export const appRoutes: Route[] = [
     pathMatch: 'full'
   },
   {
+    path: 'home',
+    loadComponent: () => import('./pages/home/home.component').then((m) => m.HomeComponent),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'products/:id',
     loadComponent: () =>
       import('./pages/product-details/product-details.component').then(
