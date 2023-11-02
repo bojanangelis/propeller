@@ -5,6 +5,7 @@ import {
   DeleteOneProductArgs,
   FindUniqueProductArgs,
   Product,
+  ProductWhereUniqueInput,
   UpdateOneProductArgs
 } from '@propeller/api/generated/generated-prisma-types'
 
@@ -23,8 +24,8 @@ export class ProductResolver {
   }
 
   @Query(() => Product, { name: 'product' })
-  product(@Args() findUniqueProductArgs: FindUniqueProductArgs) {
-    return this.productService.findOne(findUniqueProductArgs)
+  product(@Args('where') productWhereUniqueInput: ProductWhereUniqueInput) {
+    return this.productService.findOne(productWhereUniqueInput)
   }
 
   @Mutation(() => Product)

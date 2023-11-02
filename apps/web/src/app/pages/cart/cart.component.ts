@@ -7,6 +7,9 @@ import { RouterLink } from '@angular/router'
 import { MatTableModule } from '@angular/material/table'
 import { MatIconModule } from '@angular/material/icon'
 import { CartService } from '../../services/cart.service'
+import { HttpClient } from '@angular/common/http'
+// import { loadStripe } from '@stripe/stripe-js' WIP
+
 @Component({
   selector: 'propeller-cart',
   standalone: true,
@@ -23,27 +26,12 @@ import { CartService } from '../../services/cart.service'
 })
 export class CartComponent implements OnInit {
   cart: Cart = {
-    items: [
-      {
-        product: 'https://via.placeholder.com/150',
-        name: 'Shoes',
-        price: 140,
-        quantity: 1,
-        id: '1'
-      },
-      {
-        product: 'https://via.placeholder.com/150',
-        name: 'Socks',
-        price: 90,
-        quantity: 4,
-        id: ' 3'
-      }
-    ]
+    items: []
   }
   dataSource: Array<CartItem> = []
   displayedColumns: Array<string> = ['product', 'name', 'price', 'quantity', 'total', 'action']
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.dataSource = this.cart.items
@@ -70,6 +58,18 @@ export class CartComponent implements OnInit {
   }
 
   onCheckout() {}
+  // onCheckout(): void {
+  //   this.http
+  //     .post('http://localhost:4242/checkout', {
+  //       items: this.cart.items
+  //     })
+  //     .subscribe(async (res: any) => {
+  //       let stripe = await loadStripe(process.env['STRIPE_PUBLIC_KEY']!)
+  //       stripe?.redirectToCheckout({
+  //         sessionId: res.id
+  //       })
+  //     })
+  // }
 
   getTotal(items: Array<CartItem>): number {
     return this.cartService.getTotal(items)

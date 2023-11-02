@@ -41,7 +41,6 @@ export class HomeComponent implements OnInit {
     this.storeService.fetchProducts().subscribe(
       (products) => {
         this.products = products
-        console.log(this.products)
       },
       (error) => console.error('Error fetching products:', error)
     )
@@ -56,9 +55,8 @@ export class HomeComponent implements OnInit {
     this.category = newCategory
   }
   onAddToCart(product: Product): void {
-    console.log(product)
     this.cartService.addToCart({
-      product: product.name,
+      product: product?.images?.[0].img ?? '',
       name: product.name,
       price: product.price,
       quantity: 1,

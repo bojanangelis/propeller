@@ -4,6 +4,7 @@ import {
   CreateOneProductArgs,
   DeleteOneProductArgs,
   FindUniqueProductArgs,
+  ProductWhereUniqueInput,
   UpdateOneProductArgs
 } from '@propeller/api/generated/generated-prisma-types'
 import { PrismaService } from '@propeller/data-access-db'
@@ -27,9 +28,9 @@ export class ProductService {
     return this.prisma.product.findMany({ include })
   }
 
-  findOne(findUniqueProductArgs: FindUniqueProductArgs) {
+  findOne(productWhereUniqueInput: ProductWhereUniqueInput) {
     return this.prisma.product.findUnique({
-      where: findUniqueProductArgs.where,
+      where: { id: productWhereUniqueInput.id },
       include
     })
   }

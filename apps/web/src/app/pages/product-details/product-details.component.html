@@ -1,1 +1,20 @@
-<p>product-details works!</p>
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">Error: {{ error.message }}</div>
+<div *ngIf="data" class="flex flex-row h-screen items-center p-10">
+  <div class="h-scree" *ngFor="let image of data.images">
+    <img class="h-screen object-contain" [src]="image.img" alt="Product Image" />
+  </div>
+
+  <div class="flex px-10 flex-col h-full">
+    <p>{{ data.name }}</p>
+    <p>{{ data.price }}</p>
+    <div *ngIf="data.category && data.category.length > 0">
+      <p>Category: {{ data.category[0].name }}</p>
+      <p>{{ data.category[0].description }}</p>
+      <div class="flex items-center">
+        <span class="px-4">{{ data.price }}</span>
+        <button (click)="onAddToCart()" mat-button>Add to cart</button>
+      </div>
+    </div>
+  </div>
+</div>
