@@ -4,6 +4,7 @@ import { UserModule } from './user/user.module'
 import { AuthenticationModule } from './authentication/authentication.module'
 import * as path from 'node:path'
 import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius'
+import { ProductModule } from './product/product.module'
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { MercuriusDriver, MercuriusDriverConfig } from '@nestjs/mercurius'
       graphiql: true
     }),
     UserModule,
-    AuthenticationModule
+    AuthenticationModule,
+    ProductModule
   ],
   controllers: [],
   providers: []

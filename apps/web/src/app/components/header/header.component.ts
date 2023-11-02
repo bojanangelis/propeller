@@ -22,8 +22,7 @@ import { AccountService } from '../../services/account.service'
     MatBadgeModule,
     MatButtonModule
   ],
-  templateUrl: './header.component.html',
-  styleUrls: ['./header.component.scss']
+  templateUrl: './header.component.html'
 })
 export class HeaderComponent {
   constructor(

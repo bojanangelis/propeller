@@ -13,7 +13,8 @@
     "db:create-client": "prisma generate",
     "db:dev-migrate": "env-cmd --no-override -f .env npx prisma migrate dev",
     "db:studio": "env-cmd --no-override -f .env npx prisma studio",
-    "db:seed:dev": "npx env-cmd -f .env ts-node tools/database/seed.dev.ts"
+    "db:seed:dev": "npx env-cmd -f .env ts-node tools/database/seed.dev.ts",
+    "db:seed:clear": "npx env-cmd -f .env ts-node tools/database/seed-clear-data.ts"
   },
   "private": true,
   "dependencies": {

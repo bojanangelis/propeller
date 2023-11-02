@@ -7,8 +7,9 @@
       (columnsViewChange)="onColumsViewChange($event)"
     ></propeller-app-header-component>
     <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
-      <mat-grid-tile>
+      <mat-grid-tile *ngFor="let product of products">
         <propeller-product-box
+          [product]="product"
           (addToCart)="onAddToCart($event)"
           class="w-full"
           [fullWidthMode]="cols === 1"

@@ -1,17 +1,14 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatGridListModule } from '@angular/material/grid-list'
 import { AppHeaderComponentComponent } from '../components/app-header-component/app-header-component.component'
 import { FiltersComponent } from '../components/filters/filters.component'
 import { ProductBoxComponent } from '../components/product-box/product-box.component'
-import { Product } from '../../models/product.model'
 import { CartService } from '../../services/cart.service'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
-import { Apollo } from 'apollo-angular'
-import { User } from '@propeller/api/generated/generated-prisma-types'
-import { GET_ALL_USERS_GQL } from 'apps/web/src/graphql/queries/get-all-users.query'
-import { map } from 'rxjs'
+import { StoreService } from '../../services/store.service'
+import { Product } from '@propeller/api/generated/generated-prisma-types'
 
 const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 350 }
 
@@ -27,16 +24,28 @@ const ROWS_HEIGHT: { [id: number]: number } = { 1: 400, 3: 335, 4: 350 }
     ProductBoxComponent,
     MatSnackBarModule
   ],
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss']
+  templateUrl: './shop.component.html'
 })
-export class HomeComponent {
-  // products: Product[] = [];
-
+export class HomeComponent implements OnInit {
   cols = 3
   rowHeight = ROWS_HEIGHT[this.cols]
   category: string | undefined
-  constructor(private cartService: CartService) {}
+  products: Product[] | undefined = []
+
+  constructor(private cartService: CartService, private storeService: StoreService) {}
+
+  ngOnInit(): void {
+    this.getProducts()
+  }
+  getProducts() {
+    this.storeService.fetchProducts().subscribe(
+      (products) => {
+        this.products = products
+        console.log(this.products)
+      },
+      (error) => console.error('Error fetching products:', error)
+    )
+  }
 
   onColumsViewChange(newColsNum: number): void {
     this.cols = newColsNum
@@ -47,9 +56,10 @@ export class HomeComponent {
     this.category = newCategory
   }
   onAddToCart(product: Product): void {
+    console.log(product)
     this.cartService.addToCart({
-      product: product.image,
-      name: product.title,
+      product: product.name,
+      name: product.name,
       price: product.price,
       quantity: 1,
       id: product.id

@@ -35,39 +35,98 @@ model User {
     /// @Validator.MinLength(8)
     /// @HideField()
     password String
+
+    /// @Validator.IsString()
+    /// @Validator.MaxLength(20)
+    /// @Validator.MinLength(3)
+    role String? @default("USER")
+
+    /// @Validator.IsString()
+    /// @Validator.MaxLength(20)
+    /// @Validator.MinLength(3)
+    address String?
+
+    orders Order[]
 }
 
-model Product {
-    id            String   @id @default(uuid())
+model Order {
+    id        Int         @id @default(autoincrement())
+    User      User?       @relation(fields: [userId], references: [id])
+    items     OrderItem[]
+    /// @Validator.@IsInt()
+    /// @Validator.@Max(100_000)
+    /// @Validator.@Min(1)
+    total     Int
     /// @Validator.IsString()
     /// @Validator.MaxLength(100)
     /// @Validator.MinLength(3)
-    name          String   @unique
+    createdAt DateTime    @default(now())
+    updatedAt DateTime    @updatedAt
+    /// @HideField()
+    userId    Int?
+}
+
+model OrderItem {
+    id        Int     @id @default(autoincrement())
+    order     Order   @relation(fields: [orderId], references: [id])
+    product   Product @relation(fields: [productId], references: [id])
+    /// @Validator.@IsInt()
+    /// @Validator.@Min(1)
+    /// @Validator.@Max(50)
+    quantity  Int
+    /// @HideField()
+    orderId   Int
+    /// @HideField()
+    productId String
+}
+
+model Product {
+    id            String      @id @default(uuid())
     /// @Validator.IsString()
-    /// @Validator.MaxLength(1000)
-    /// @Validator.MinLength(0)
-    description   String?
+    /// @Validator.MaxLength(100)
+    /// @Validator.MinLength(3)
+    name          String      @unique
     /// @Validator.@IsInt()
     /// @Validator.@Min(1)
     /// @Validator.@Max(100_000)
     price         Int
+    /// @Validator.@IsInt()
+    /// @Validator.@Min(1)
+    /// @Validator.@Max(100_000)
     discountPrice Int?
-    category      Category @relation(fields: [categoryId], references: [id])
-    categoryId    Int
-    image         String
-    rating        Rating   @relation(fields: [ratingId], references: [id])
-    ratingId      Int      @unique
+    images        Image[]
+    category      Category[]
+    OrderItem     OrderItem[]
 }
 
 model Category {
-    id       Int       @id @default(autoincrement())
-    name     String    @unique
-    products Product[]
+    id          String    @id @default(uuid())
+    /// @Validator.IsString()
+    /// @Validator.MaxLength(100)
+    /// @Validator.MinLength(3)
+    name        String
+    /// @Validator.IsString()
+    /// @Validator.MaxLength(200)
+    /// @Validator.MinLength(3)
+    description String?
+    products    Product[]
 }
 
-model Rating {
-    id      Int       @id @default(autoincrement())
-    rate    Float
-    count   Int
-    product Product[]
+model Image {
+    id    String  @id @default(uuid())
+    /// @Validator.IsString()
+    /// @Validator.MaxLength(100)
+    /// @Validator.MinLength(3)
+    title String?
+    /// @Validator.IsString()
+    /// @Validator.MaxLength(100)
+    /// @Validator.MinLength(3)
+    img   String
+
+    //----Relations----//
+    /// @HideField()
+    /// @HideField()
+    product   Product? @relation(fields: [productId], references: [id])
+    /// @HideField()
+    productId String?
 }
