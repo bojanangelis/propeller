@@ -1,17 +1,12 @@
 import { PrismaClient } from '@prisma/client'
-import { USERS_SEED_DATA } from './seed-data'
+import { seedCategories, seedProducts, seedUsers } from './seed-data'
+// import { USERS_SEED_DATA } from './seed-data'
 const prisma = new PrismaClient()
 
 async function main() {
-  await Promise.all(
-    USERS_SEED_DATA.map((user) => {
-      return prisma.user.upsert({
-        where: { id: user.id },
-        update: user,
-        create: user
-      })
-    })
-  )
+  await seedUsers()
+  await seedCategories()
+  await seedProducts()
 }
 
 main()

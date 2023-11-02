@@ -1,6 +1,4 @@
 import { Route } from '@angular/router'
-import { HomeComponent } from './pages/home/home.component'
-import { CartComponent } from './pages/cart/cart.component'
 import { AuthGuard } from './guards/auth/auth.guard'
 
 export const appRoutes: Route[] = [
@@ -12,6 +10,19 @@ export const appRoutes: Route[] = [
   {
     path: 'home',
     loadComponent: () => import('./pages/home/home.component').then((m) => m.HomeComponent),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'products/:id',
+    loadComponent: () =>
+      import('./pages/product-details/product-details.component').then(
+        (m) => m.ProductDetailsComponent
+      ),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'shop',
+    loadComponent: () => import('./pages/shop/shop.component').then((m) => m.HomeComponent),
     canActivate: [AuthGuard]
   },
   {

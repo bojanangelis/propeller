@@ -1,0 +1,20 @@
+<mat-drawer-container [autosize]="true" class="min-h-full top-0 p-0 m-0 mx-auto border-x">
+  <mat-drawer mode="side" opened class="p-6">
+    <propeller-filters (showCategory)="onShowCategory($event)"></propeller-filters>
+  </mat-drawer>
+  <mat-drawer-content class="px-4 py-2">
+    <propeller-app-header-component
+      (columnsViewChange)="onColumsViewChange($event)"
+    ></propeller-app-header-component>
+    <mat-grid-list gutterSize="16" [cols]="cols" [rowHeight]="rowHeight">
+      <mat-grid-tile *ngFor="let product of products">
+        <propeller-product-box
+          [product]="product"
+          (addToCart)="onAddToCart($event)"
+          class="w-full"
+          [fullWidthMode]="cols === 1"
+        ></propeller-product-box>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-drawer-content>
+</mat-drawer-container>

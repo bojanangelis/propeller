@@ -1,0 +1,19 @@
+<div *ngIf="loading">Loading...</div>
+<div *ngIf="error">Error: {{ error.message }}</div>
+<div *ngIf="data" class="flex flex-row h-screen items-center p-10">
+  <div class="h-scree" *ngFor="let image of data.images">
+    <img class="h-screen object-contain" [src]="image.img" alt="Product Image" />
+  </div>
+
+  <div class="flex px-10 flex-col h-full">
+    <p class="text-5xl font-light">{{ data.name }}</p>
+    <div *ngIf="data.category && data.category.length > 0">
+      <p class="text-3xl font-light">Category: {{ data.category[0].name ?? 'Fashion' }}</p>
+      <p class="text-2xl font-light text-gray-600">{{ data.category[0].description }}</p>
+      <div class="flex items-center pt-10">
+        <span class="text-xl font-light text-orange-500 px-4">{{ data.price | currency }}</span>
+        <button (click)="onAddToCart()" mat-button>Add to cart</button>
+      </div>
+    </div>
+  </div>
+</div>

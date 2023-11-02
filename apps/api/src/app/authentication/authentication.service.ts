@@ -26,9 +26,9 @@ export class AuthenticationService {
   }
 
   async signUp(signUpInput: SignUpInput) {
-    const { email, password: plainPassword } = signUpInput
+    const { email, password: plainPassword, name, address, role } = signUpInput
     const password = await bcrypt.hash(plainPassword, 10)
-
-    return this.userService.create({ data: { email, password } })
+    console.log(signUpInput)
+    return this.userService.create({ data: { email, password, name, address, role } })
   }
 }

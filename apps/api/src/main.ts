@@ -25,6 +25,7 @@ async function bootstrap() {
       }
     })
   )
+  app.useLogger(['log', 'error', 'warn', 'debug', 'verbose'])
 
   await app.register(helmet, {
     contentSecurityPolicy: {
